@@ -1,3 +1,10 @@
 import React from 'react';
 
-export const App = () => <div>I&apos;m a React app!</div>;
+const Header = React.lazy(() => import('header/Header'));
+
+export const App = () => (
+	<React.Suspense fallback="Loading application...">
+		<Header>Welcome to the Federated Universe</Header>
+		<div>I&apos;m a React app!</div>
+	</React.Suspense>
+);
