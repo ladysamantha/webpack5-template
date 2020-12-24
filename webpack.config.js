@@ -7,17 +7,15 @@ const path = require('path');
 
 const deps = require('./package.json').dependencies;
 
-const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
-
 /** @type {import('webpack').Configuration} */
-module.exports = {
+module.exports = ({production} = {production: false}) => ({
 	entry: './src/index.js',
 	output: {
 		publicPath: 'auto',
 		path: path.join(__dirname, 'build'),
 		chunkFilename: '[id].[contenthash].js'
 	},
-	mode,
+	mode: production ? 'production' : 'development',
 	devServer: {
 		contentBase: path.join(__dirname, 'build'),
 		port: Number.parseInt(process.env.PORT, 10) || 3000,
@@ -77,4 +75,4 @@ module.exports = {
 			template: './public/index.html'
 		})
 	]
-};
+});
